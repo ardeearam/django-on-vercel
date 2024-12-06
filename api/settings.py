@@ -96,7 +96,7 @@ DATABASES = {
 
 database_options = env('DATABASE_OPTIONS', default=None)
 if database_options:
-  DATABASES['default']['OPTIONS'] = database_options
+  DATABASES['default']['DATABASE_OPTIONS'] = database_options
 
 
 
