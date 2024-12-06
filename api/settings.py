@@ -26,7 +26,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-=cldztbc4jg&xl0!x673!*v2_=p$$eu)=7*f#d0#zs$44xx-h^'
+SECRET_KEY = env('SECRET_KEY', default='django-insecure-=cldztbc4jg&xl0!x673!*v2_=p$$eu)=7*f#d0#zs$44xx-h^')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -83,28 +83,18 @@ WSGI_APPLICATION = 'api.wsgi.app'
 # Note: Django modules for using databases are not support in serverless
 # environments like Vercel. You can use a database over HTTP, hosted elsewhere.
 
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',  # Use SQLite backend
-        'NAME': BASE_DIR / 'db.sqlite3',         # Location of the SQLite database file
-    }
+  'default': {
+      'ENGINE': env('DATABASE_ENGINE', default='django.db.backends.sqlite3'),  
+      'NAME': env('DATABASE_NAME', default=BASE_DIR / 'db.sqlite3'),       
+      'USER': env('DATABASE_USER', default=None),
+      'PASSWORD': env('DATABASE_PASSWORD', default=None),
+      'HOST': env('DATABASE_HOST', default=None),
+      'PORT': env('DATABASE_PORT', default=None),
+  }
 }
 
-# Uncomment to use other databases such as Vercel Postgres for production use
-# Place the necessary credentials in the environment variables
-# DO NOT COMMIT YOUR CREDENTIALS!
-# https://vercel.com/docs/storage/vercel-postgres 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': env('DATABASE_ENGINE'),
-#        'NAME': env('DATABASE_NAME'),
-#        'USER': env('DATABASE_USER'),
-#        'PASSWORD': env('DATABASE_PASSWORD'),
-#        'HOST': env('DATABASE_HOST'),
-#        'PORT': env('DATABASE_PORT'),
-#    }
-#}
+
 
 
 # Password validation
