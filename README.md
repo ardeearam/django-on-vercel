@@ -2,6 +2,10 @@
 
 This example shows how to use Django 5 on Vercel with Serverless Functions using the [Python Runtime](https://vercel.com/docs/concepts/functions/serverless-functions/runtimes/python).
 
+The purpose of this example is to serve as a Django 5 codebase that deploys to Vercel out-of-the-box. No fuss, no mess.
+
+Feel free to extend this codebase on your own fork by adding your own business logic in your own apps.
+
 ## Demo
 
 https://django-on-vercel-beh8.vercel.app/
@@ -39,26 +43,18 @@ The corresponding `WSGI_APPLICATION` setting is configured to use the `app` vari
 WSGI_APPLICATION = 'api.wsgi.app'
 ```
 
-There is a single view which renders the current time in `example/views.py`:
+There is a single view in `example/views.py` which renders the Django rocketship template in `example/templates/example/index.html` we all know and love:
 
 ```python
 # example/views.py
 from datetime import datetime
 
 from django.http import HttpResponse
-
+from django.shortcuts import render
 
 def index(request):
-    now = datetime.now()
-    html = f'''
-    <html>
-        <body>
-            <h1>Hello from Vercel!</h1>
-            <p>The current time is { now }.</p>
-        </body>
-    </html>
-    '''
-    return HttpResponse(html)
+  now = datetime.now()
+  return render(request, 'example/index.html')
 ```
 
 This view is exposed a URL through `example/urls.py`:
@@ -96,4 +92,8 @@ python manage.py runserver
 ```
 
 Your Django application is now available at `http://localhost:8000`.
+
+## Deploying on Vercel
+
+For more instructions on deployment to Vercel, visit: https://ardeearam.dev/posts/where-do-i-host-my-django5-projects-for-free/
 
