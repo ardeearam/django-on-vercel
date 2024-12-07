@@ -86,19 +86,16 @@ WSGI_APPLICATION = 'api.wsgi.app'
 DATABASES = {
   'default': {
       'ENGINE': env('DATABASE_ENGINE', default='django.db.backends.sqlite3'),  
-      'NAME': env('DATABASE_NAME', default=BASE_DIR / 'db.sqlite3'),       
+      'NAME': env('DATABASE_NAME', default='db.sqlite3'),       
       'USER': env('DATABASE_USER', default=None),
       'PASSWORD': env('DATABASE_PASSWORD', default=None),
       'HOST': env('DATABASE_HOST', default=None),
       'PORT': env('DATABASE_PORT', default=None),
-  }
+      'OPTIONS': {
+          'options': env('DATABASE_OPTIONS', default=None)
+      },
+    }  
 }
-
-database_options = env('DATABASE_OPTIONS', default=None)
-if database_options:
-  DATABASES['default']['DATABASE_OPTIONS'] = database_options
-
-
 
 
 # Password validation
